@@ -1,0 +1,170 @@
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0px; width: 100%;   z-index: -1;}
+
+#slider-container { 
+    position: absolute; 
+    bottom: 25px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 75%;
+    padding: 5px; 
+    background-color: #fff; 
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+.info {
+    padding: 8px;
+}
+.white-box {
+position: absolute;
+top: 0;
+left: 0;
+height: 115px;
+width: 100%;
+background-color: white;
+z-index: -1; /* Set a higher z-index to ensure it's above other elements */
+}
+
+.white-box-side {
+position: absolute;
+top: 0;
+right: 0;
+height: 100%;
+width: 500px;
+background-color: white;
+z-index: -1; /* Set a higher z-index to ensure it's above other elements */
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    top: 60px; /* Apply top position */
+    padding: 10px;
+    background-color: #f0f0f0;
+    z-index: 1;
+}
+
+/* Style for the buttons */
+.button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for the dropdown button */
+.dropdown {
+    position: relative;
+}
+
+/* Style for the dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Desktop Mode */
+@media only screen and (min-width: 900px) {
+    .white-box-big {
+    display: block; /* Show the white box on desktop */
+    }
+    .info {
+    display: none;
+}
+.white-box-side {
+    display: block; /* Show the white box on desktop */
+    }
+}
+
+/* Half-Screen mode (1280px to 770px) */
+@media only screen and (max-width: 900px) and (min-width: 780px) {
+    .white-box {
+    display: block; /* Show the white box on desktop */
+    }
+    .white-box-side {
+    display: none; /* Show the white box on desktop */
+    }
+    .info {
+    display: none;
+}
+}
+
+/* Mobile mode (less than 770px) */
+@media only screen and (max-width: 780px) {
+    .white-box {
+    display: none; /* Hide the white box on mobile devices */
+    }
+    .button-row {
+    display: none; /* Hide the white box on mobile devices */
+    }
+    .info {
+    display: block;
+}
+.white-box-side {
+    display: none; /* Show the white box on desktop */
+    }
+}
+#real-slider { 
+    width: calc(100%); /* Adjusted width to fit labels */
+}
+
+#slider-value {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.search-input {
+display: block;
+width: 155px;
+align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.scrollable {
+    max-height: 1000px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.township-list {
+overflow-y: auto;
+max-height: 120px; /* Adjust the maximum height as needed */
+}
+
+/* Hide extra townships when more than 4 */
+.township.hidden {
+    display: none;
+}
+
+.back-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+.back-button:hover {
+    background-color: #45a049;
+}
