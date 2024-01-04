@@ -15,6 +15,26 @@ body { margin: 0; padding: 0; }
     align-items: center;
     font-size: 12px;
 }
+
+.text {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: Arial, sans-serif; /* Use any desired font family */
+    font-size: 35px; /* Adjust the font size */
+    color: #333; /* Adjust the text color */
+    /* Add more styles as needed */
+}
+.small-text {
+    position: absolute;
+    top: 12px;
+    left: 115px;
+    font-family: Arial, sans-serif; /* Use any desired font family */
+    font-size: 12px; /* Adjust the font size */
+    color: #333; /* Adjust the text color */
+    /* Add more styles as needed */
+}
+
 .info {
     padding: 8px;
 }
