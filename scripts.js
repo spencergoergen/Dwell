@@ -59,7 +59,7 @@ const infoDisplay = document.getElementById('info');
 let mapInfo; // Declare countyInfo variable outside the event handlers
 
 // Load the JSON data from external file
-fetch('/JSON/michigan.json')
+fetch('michigan.json')
 .then(response => response.json())
 .then(data => {
     const mapInfo = data;
@@ -92,19 +92,19 @@ fetch('/JSON/michigan.json')
     // Load county boundary data
     map.addSource('townships', {
         type: 'geojson',
-        data: '/geoJSON/townships.geojson' // Replace with the path to your county boundary JSON file
+        data: 'townships.geojson' // Replace with the path to your county boundary JSON file
     });   
 
             // Load county boundary data
     map.addSource('schools', {
         type: 'geojson',
-        data: '/geoJSON/schools.geojson' // Replace with the path to your county boundary JSON file
+        data: 'schools.geojson' // Replace with the path to your county boundary JSON file
     });   
 
                     // Load county boundary data
     map.addSource('counties', {
         type: 'geojson',
-        data: '/geoJSON/county.geojson' // Replace with the path to your county boundary JSON file
+        data: 'county.geojson' // Replace with the path to your county boundary JSON file
     });   
 
 
