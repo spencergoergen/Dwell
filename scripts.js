@@ -9,53 +9,55 @@ searchField.addEventListener('input', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-// Get all dropdowns
-const dropdowns = document.querySelectorAll('.dropdown');
+    // Get all dropdowns
+    const dropdowns = document.querySelectorAll('.dropdown');
 
-// Add click event listener to each dropdown
-dropdowns.forEach((dropdown) => {
-    const dropdownContent = dropdown.querySelector('.dropdown-content');
+    // Add click event listener to each dropdown
+    dropdowns.forEach((dropdown) => {
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
 
-    dropdown.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevent the click event from propagating to the document
+        dropdown.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click event from propagating to the document
 
-    // Toggle the display of the dropdown content
-    dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        // Toggle the display of the dropdown content
+        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
 
-    // Hide other dropdowns' content if clicked
-    dropdowns.forEach((otherDropdown) => {
-        if (otherDropdown !== dropdown) {
-        otherDropdown.querySelector('.dropdown-content').style.display = 'none';
+        // Hide other dropdowns' content if clicked
+        dropdowns.forEach((otherDropdown) => {
+            if (otherDropdown !== dropdown) {
+            otherDropdown.querySelector('.dropdown-content').style.display = 'none';
+            }
+        });
+        });
+
+        // Close the dropdown when clicking outside of it
+        document.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target)) {
+            dropdownContent.style.display = 'none';
         }
+        });
     });
-    });
-
-    // Close the dropdown when clicking outside of it
-    document.addEventListener('click', (event) => {
-    if (!dropdown.contains(event.target)) {
-        dropdownContent.style.display = 'none';
-    }
-    });
-});
 });
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2dvZXJnZW4iLCJhIjoiY2xxOGh3NXNmMWRpbDJybGt0M3dlaWhuaCJ9._cf-BoBhMT2C5-sHnyHqeQ';
 const map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [-85, 43], // Center the map on Michigan
-zoom: 8 // Adjust the zoom level as needed
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-85, 43], // Center the map on Michigan
+    zoom: 8 // Adjust the zoom level as needed
 });
 
 function goBack() {
         window.history.back();
-    }
+}
 
 const bounds = [ [-91, 41], // Southwest coordinates of Michigan
 [-81.5, 49] // Northeast coordinates of Michigan
 ];
+
 const infoDisplay = document.getElementById('info');
 let mapInfo; // Declare countyInfo variable outside the event handlers
+
 // Load the JSON data from external file
 fetch('/JSON/michigan.json')
 .then(response => response.json())
@@ -105,7 +107,7 @@ fetch('/JSON/michigan.json')
         data: '/geoJSON/county.geojson' // Replace with the path to your county boundary JSON file
     });   
 
-    // Add county line layer
+
     map.addLayer({
         'id': 'townships-line-layer',
         'type': 'line',
@@ -116,8 +118,6 @@ fetch('/JSON/michigan.json')
         'line-width': 3 // Adjust the width of the county lines
         }
     });
-
-                    // Add county line layer
     map.addLayer({
         'id': 'schools-line-layer',
         'type': 'line',
@@ -128,8 +128,6 @@ fetch('/JSON/michigan.json')
         'line-width': 3 // Adjust the width of the county lines
         }
     });
-
-
     map.addLayer({
         'id': 'county-line-layer',
         'type': 'line',
@@ -140,8 +138,6 @@ fetch('/JSON/michigan.json')
         'line-width': 4
         }
     });
-
-            // Add county fill layer
     map.addLayer({
         'id': 'townships-fill-layer',
         'type': 'fill',
@@ -151,8 +147,6 @@ fetch('/JSON/michigan.json')
         'fill-opacity': 0 // Adjust the fill opacity of the counties
         }
     });
-
-            // Add county fill layer
     map.addLayer({
         'id': 'county-fill-layer',
         'type': 'fill',
@@ -162,9 +156,6 @@ fetch('/JSON/michigan.json')
         'fill-opacity': 0 // Adjust the fill opacity of the counties
         }
     });
-
-
-    // Add county fill layer
     map.addLayer({
         'id': 'schools-fill-layer',
         'type': 'fill',
@@ -174,7 +165,6 @@ fetch('/JSON/michigan.json')
         'fill-opacity': 0 // Adjust the fill opacity of the counties
         }
     });
-
 
     // Information display div
     const infoDisplay = document.getElementById('info');
@@ -302,7 +292,6 @@ fetch('/JSON/michigan.json')
 
 });
 
-
     // Change cursor to pointer when hovering over county fill
     map.on('mouseenter', 'county-fill-layer', () => {
         map.getCanvas().style.cursor = 'pointer';
@@ -321,9 +310,10 @@ fetch('/JSON/michigan.json')
 // Function to toggle school display for a township/city
 function toggleSchools(element) {
 const schoolsElement = element.nextElementSibling;
-if (schoolsElement.style.display === 'none') {
+if (schoolsElement.style.display === 'none'){
     schoolsElement.style.display = 'block';
-} else {
+} 
+else {
     schoolsElement.style.display = 'none';
 }
 }
