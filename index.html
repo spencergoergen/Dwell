@@ -99,6 +99,15 @@
 <div id='info' class='info' style='position: absolute; top: 0.5px; left: 0.5px; background-color: white; padding: 10px; border-radius: 3px;'>Select an Area & Use Slider</div>
 <!--<button class="back-button" onclick="goBack()">Back</button>-->
 
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoic2dvZXJnZW4iLCJhIjoiY2xxOGh3NXNmMWRpbDJybGt0M3dlaWhuaCJ9._cf-BoBhMT2C5-sHnyHqeQ';
+const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [-85, 43], // Center the map on Michigan
+zoom: 8 // Adjust the zoom level as needed
+});
+</script>
 
 </body>
 </html>

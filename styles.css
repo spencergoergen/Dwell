@@ -1,5 +1,5 @@
 body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0px; width: 100%;   z-index: -1;}
+#map { position: absolute; top: 0; bottom: 0px; width: 100%;   z-index: 1;}
 
 #slider-container { 
     position: absolute; 
