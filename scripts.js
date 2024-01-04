@@ -57,7 +57,7 @@ const bounds = [ [-91, 41], // Southwest coordinates of Michigan
 const infoDisplay = document.getElementById('info');
 let mapInfo; // Declare countyInfo variable outside the event handlers
 // Load the JSON data from external file
-fetch('michigan.json')
+fetch('/JSON/michigan.json')
 .then(response => response.json())
 .then(data => {
     const mapInfo = data;
@@ -90,19 +90,19 @@ fetch('michigan.json')
     // Load county boundary data
     map.addSource('townships', {
         type: 'geojson',
-        data: 'townships.geojson' // Replace with the path to your county boundary JSON file
+        data: '/geoJSON/townships.geojson' // Replace with the path to your county boundary JSON file
     });   
 
             // Load county boundary data
     map.addSource('schools', {
         type: 'geojson',
-        data: 'schools.geojson' // Replace with the path to your county boundary JSON file
+        data: '/geoJSON/schools.geojson' // Replace with the path to your county boundary JSON file
     });   
 
                     // Load county boundary data
     map.addSource('counties', {
         type: 'geojson',
-        data: 'county.geojson' // Replace with the path to your county boundary JSON file
+        data: '/geoJSON/county.geojson' // Replace with the path to your county boundary JSON file
     });   
 
     // Add county line layer
