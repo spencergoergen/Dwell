@@ -1,12 +1,24 @@
 body {margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0px; width: 100%;   z-index: -3;}
-
+.slider-top {
+    padding: 8px;
+    background-color: white;
+    position: absolute;
+    Top: 35px;
+    Left: 150px;
+    padding: 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+}
 .info-info {
     padding: 8px;
     background-color: white; 
     display: block;
     position: absolute; 
-    top: 120px; 
+    top: 140px; 
     right: 10px; 
     padding: 10px; 
     border-radius: 3px;
@@ -151,7 +163,7 @@ body {margin: 0; padding: 0; }
 }
 
 /* Desktop Mode */
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 910px) {
     .white-box-big {
         display: block; /* Show the white box on desktop */
     }
@@ -160,18 +172,8 @@ body {margin: 0; padding: 0; }
     }
 }
 
-/* Half-Screen mode (1280px to 770px) */
-@media only screen and (max-width: 900px) and (min-width: 780px) {
-    .white-box {
-    display: block; /* Show the white box on desktop */
-    }
-    .white-box-side {
-    display: none; /* Show the white box on desktop */
-    }
-}
-
 /* Mobile mode (less than 770px) */
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 910px) {
     .white-box {
     display: none; /* Hide the white box on mobile devices */
     }
@@ -180,7 +182,32 @@ body {margin: 0; padding: 0; }
     }
     .white-box-side {
         display: none; /* Show the white box on desktop */
-        }
+    }
+    .title-text {
+        display: none; /* Show the white box on desktop */
+    }
+    .circle {
+        display: none; /* Show the white box on desktop */
+    }
+    #slider-container {
+        display: none; /* Show the white box on desktop */
+    }
+    .right-side-text{
+        display: none; /* Show the white box on desktop */
+    }
+    .info-info {
+        position: absolute; 
+        top: 25px; 
+        Left: 0.1px; 
+        padding: 10px; 
+        border-radius: 3px;
+        z-index: 1;
+    }
+    .slider-top {
+        position: absolute;
+        Top: 0px;
+        Left: 0px;
+    }
     }
 
 #real-slider { 

@@ -19,7 +19,7 @@ resetButton.addEventListener('click', function() {
     map.setPaintProperty('schools-fill-layer', 'fill-opacity', 0);
     const infoDiv = document.getElementById('info');
     infoDiv.innerHTML = ''; // Clear previous content
-    infoDiv.innerHTML += `Select an Area & Use Slider`;
+    infoDiv.innerHTML += `Change price and select an area`;
 });
 
 
@@ -239,16 +239,12 @@ fetch('michigan.json')
         const schoolFeatures = map.queryRenderedFeatures(e.point, { layers: ['schools-fill-layer'] });
 
         const infoDiv = document.getElementById('info');
-        const bottomText = document.getElementById('bottom-text');
         infoDiv.innerHTML = ''; // Clear previous content
-        bottomText.innerHTML = ''; // Clear previous content
-
         let clickedCounty = ''
         let clickedTwp = ''
         let clickedSchool = ''
         //infoDiv.innerHTML += `<strong>Monthly Property Tax For Loan Amount: </strong> ${sliderValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
         infoDiv.innerHTML += `<strong><span style="color: purple;">Selected Area</span></strong><br>`;
-        bottomText.innerHTML += `Use slider; Re-select area to updatee<br>`;
 
         if (countyFeatures.length > 0) {
         clickedCounty = countyFeatures[0].properties.NAME_2; // Extract county name from the GeoJSON property
