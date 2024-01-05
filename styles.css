@@ -162,6 +162,16 @@ body {margin: 0; padding: 0; }
     z-index: 1;
 }
 
+.floating-image {
+    position: absolute;
+    width: 130px;
+    height: 66px;
+    top: 1px; /* Adjust the top position as needed */
+    left: 1px; /* Adjust the left position as needed */
+    z-index: 999; /* Ensure it's above other content */
+    border-radius: 5px;
+}
+
 /* Desktop Mode */
 @media only screen and (min-width: 910px) {
     .white-box-big {
