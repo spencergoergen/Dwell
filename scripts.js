@@ -11,6 +11,7 @@ searchField.addEventListener('input', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Get all dropdowns
     const dropdowns = document.querySelectorAll('.dropdown');
+    const priceInput = document.querySelectorAll('.price-input');
 
     // Add click event listener to each dropdown
     dropdowns.forEach((dropdown) => {
@@ -37,6 +38,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         });
     });
+    const priceButton = document.getElementById('priceButton');
+    const priceContent = document.getElementById('priceContent');
+  
+    priceButton.addEventListener('click', () => {
+      if (priceContent.style.display === 'block') {
+        priceContent.style.display = 'none';
+      } else {
+        priceContent.style.display = 'block';
+      }
+    });
+
 });
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2dvZXJnZW4iLCJhIjoiY2xxOGh3NXNmMWRpbDJybGt0M3dlaWhuaCJ9._cf-BoBhMT2C5-sHnyHqeQ';
