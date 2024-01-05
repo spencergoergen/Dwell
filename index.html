@@ -12,15 +12,7 @@
 </head>
 
 <body>
-  <div class="info-info" id='info' style='padding: 8px;
-  background-color: white; 
-  display: block;
-  position: absolute; 
-  top: 145px; 
-  right: 10px; 
-  padding: 10px; 
-  border-radius: 3px;
-  z-index: 1;'>Select an Area & Use Slider</div>
+  <div class="info-info" id='info'>Select an Area & Use Slider</div>
   <div class="title-text">Dwell</div>
   <div class="right-side-text">Advertise</div>
   <div class="circle"><span>SG</span></div>
@@ -45,8 +37,9 @@
     <div class="price-input">
       <button class="button" id="priceButton">Price v</button>
       <div class="price-content" id="priceContent">
-        <input type="text" placeholder="Min" id="minPrice">
-        <input type="text" placeholder="Max" id="maxPrice">
+        <div id="slider-container">
+          <input type="range" min="0" max="1000000" step="5000" id="real-slider">
+        </div>
       </div>
     </div>
     
@@ -92,10 +85,12 @@
         </div>
   </div>
 
+  <div class='normal-text'>Show:</div>
+
   <div class="checkbox-container">
-    <label><input type="checkbox" id="countyCheckbox"> Show Counties</label>
-    <label><input type="checkbox" id="townshipCheckbox"> Show Townships/Cities</label>
-    <label><input type="checkbox" id="schoolsCheckbox"> Show School Districts</label>
+    <label><input type="checkbox" id="countyCheckbox">Counties</label>
+    <label><input type="checkbox" id="townshipCheckbox">Townships/Cities</label>
+    <label><input type="checkbox" id="schoolsCheckbox">School Districts</label>
   </div>
 
   <div class="button" id="resetButton">Reset Map
@@ -112,7 +107,7 @@
 
 
 <div id="slider-value"></div>
-<div id="slider-top" style='position: absolute; bottom: 55px; left: 50%; transform: translateX(-50%); background-color: white; padding: 5px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px;'>Estimated Home Value: $500,000</div>
+<div id="slider-top" style='position: absolute; Top: 35px; Left: 200px; background-color: white; padding: 5px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px;'>Estimated Home Value: $500,000</div>
 <div id='bottom-text' style='position: absolute; bottom: 0.5px; left: 50%; transform: translateX(-50%); background-color: white; padding: 5px; border-radius: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px;'>Use slider; Re-select area to update</div>
 <script src='scripts.js'></script>
 </body>
