@@ -12,9 +12,9 @@ const resetButton = document.getElementById('resetButton');
 
 resetButton.addEventListener('click', function() {
     map.setPaintProperty('county-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('county-fill-layer', 'fill-opacity', 0);
+    map.setPaintProperty('county-fill-layer', 'line-opacity', 0);
     map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('townships-fill-layer', 'fill-opacity', 0);
+    map.setPaintProperty('townships-fill-layer', 'line-opacity', 0);
     map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
     map.setPaintProperty('schools-fill-layer', 'fill-opacity', 0);
 });
