@@ -1,12 +1,57 @@
 // Get references to the search button and search input field
 const searchInput = document.getElementById('searchInput');
 const searchField = document.getElementById('searchField');
-
+ 
 // Event listener for typing in the search field
 searchField.addEventListener('input', () => {
 // Handle input changes, perform search operations, etc.
 // You can access the search input value using: searchField.value
 });
+
+const resetButton = document.getElementById('resetButton');
+
+resetButton.addEventListener('click', function() {
+    map.setPaintProperty('county-line-layer', 'line-opacity', 0);
+    map.setPaintProperty('county-fill-layer', 'fill-opacity', 0);
+    map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
+    map.setPaintProperty('townships-fill-layer', 'fill-opacity', 0);
+    map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
+    map.setPaintProperty('schools-fill-layer', 'fill-opacity', 0);
+});
+
+
+function getCheckedOptions() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const checkedOptions = Array.from(checkboxes).map((checkbox) => checkbox.value);
+    console.log(checkedOptions);
+  }  
+const countyCheckbox = document.getElementById('countyCheckbox');
+const townshipCheckbox = document.getElementById('townshipCheckbox');
+const schoolsCheckbox = document.getElementById('schoolsCheckbox');
+
+countyCheckbox.addEventListener('change', function() {
+    if (countyCheckbox.checked) {
+      map.setPaintProperty('county-line-layer', 'line-opacity', 0.1);
+    } else {
+      map.setPaintProperty('county-line-layer', 'line-opacity', 0);
+    }
+  });
+
+townshipCheckbox.addEventListener('change', function() {
+    if (townshipCheckbox.checked) {
+      map.setPaintProperty('townships-line-layer', 'line-opacity', 0.1);
+    } else {
+      map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
+    }
+  });
+
+schoolsCheckbox.addEventListener('change', function() {
+    if (schoolsCheckbox.checked) {
+      map.setPaintProperty('schools-line-layer', 'line-opacity', 0.1);
+    } else {
+      map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
+    }
+  });
 
 document.addEventListener('DOMContentLoaded', () => {
     // Get all dropdowns
@@ -126,7 +171,7 @@ fetch('michigan.json')
         'source': 'townships',
         'paint': {
         'line-color': '#000000', // Adjust the color of the county lines as needed
-        'line-opacity': 0.1,
+        'line-opacity': 0,
         'line-width': 3 // Adjust the width of the county lines
         }
     });
@@ -136,7 +181,7 @@ fetch('michigan.json')
         'source': 'schools',
         'paint': {
         'line-color': '#000000', // Adjust the color of the county lines as needed
-        'line-opacity': 0.1,
+        'line-opacity': 0,
         'line-width': 3 // Adjust the width of the county lines
         }
     });
