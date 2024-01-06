@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0px; width: 100%;   z-index: -3;}
 
 #slider-container { 
     position: absolute; 
@@ -15,34 +14,6 @@
     justify-content: space-between;
     align-items: center;
     font-size: 12px;
-}
-
-.slider-top {
-	position: absolute;
-	bottom: 55px;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: white;
-	padding: 5px;
-	border-radius: 3px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	font-size: 16px;
-}
-
-.bottom-text {
-	position: absolute;
-	bottom: 0.5px;
-	left: 50%; 
-	transform: translateX(-50%); 
-	background-color: white;
-	padding: 5px;
-	border-radius: 5px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	font-size: 14px;
 }
 
 .title-text {
@@ -110,9 +81,8 @@
     background-color: white; 
     display: block;
     position: absolute; 
-    top: 145px; 
+    top: 300px; 
     left: 0.5px; 
-	right: 10px;
     padding: 10px; 
     border-radius: 3px;
     z-index: 1;
@@ -158,6 +128,11 @@
     background-color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+/* Style for the dropdown button */
+.dropdown {
+    position: relative;
 }
 
 /* Style for the dropdown content */
@@ -213,15 +188,10 @@
     margin-top: 10px;
 }
 
-.search-input-container {
-	display: block;
-	width: 155px;
-	align-items: center;
-	flex-grow: 1;
-}
-
 .search-input {
-	width: 100%;
+display: block;
+width: 155px;
+align-items: center;
 }
 
 .hidden {

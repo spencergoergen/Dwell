@@ -12,11 +12,14 @@ const resetButton = document.getElementById('resetButton');
 
 resetButton.addEventListener('click', function() {
     map.setPaintProperty('county-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('county-fill-layer', 'line-opacity', 0);
+    map.setPaintProperty('county-fill-layer', 'fill-opacity', 0);
     map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('townships-fill-layer', 'line-opacity', 0);
+    map.setPaintProperty('townships-fill-layer', 'fill-opacity', 0);
     map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
     map.setPaintProperty('schools-fill-layer', 'fill-opacity', 0);
+    const infoDiv = document.getElementById('info');
+    infoDiv.innerHTML = ''; // Clear previous content
+    infoDiv.innerHTML += `Change price and select an area`;
 });
 
 
@@ -31,7 +34,7 @@ const schoolsCheckbox = document.getElementById('schoolsCheckbox');
 
 countyCheckbox.addEventListener('change', function() {
     if (countyCheckbox.checked) {
-      map.setPaintProperty('county-line-layer', 'line-opacity', 0.1);
+      map.setPaintProperty('county-line-layer', 'line-opacity', 0.3);
     } else {
       map.setPaintProperty('county-line-layer', 'line-opacity', 0);
     }
@@ -39,7 +42,7 @@ countyCheckbox.addEventListener('change', function() {
 
 townshipCheckbox.addEventListener('change', function() {
     if (townshipCheckbox.checked) {
-      map.setPaintProperty('townships-line-layer', 'line-opacity', 0.1);
+      map.setPaintProperty('townships-line-layer', 'line-opacity', 0.3);
     } else {
       map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
     }
@@ -47,7 +50,7 @@ townshipCheckbox.addEventListener('change', function() {
 
 schoolsCheckbox.addEventListener('change', function() {
     if (schoolsCheckbox.checked) {
-      map.setPaintProperty('schools-line-layer', 'line-opacity', 0.1);
+      map.setPaintProperty('schools-line-layer', 'line-opacity', 0.3);
     } else {
       map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
     }
@@ -129,6 +132,10 @@ fetch('michigan.json')
     const infoPage = document.getElementById('info');
 
     slider.addEventListener('input', (e) => {
+        const infoDiv = document.getElementById('info');
+        infoDiv.innerHTML = ''; // Clear previous content
+        infoDiv.innerHTML += `Select an Area`;
+
         const sliderValue = parseFloat(e.target.value);
         // Update slider value display
         sliderValueDisplay.textContent = sliderValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -232,16 +239,12 @@ fetch('michigan.json')
         const schoolFeatures = map.queryRenderedFeatures(e.point, { layers: ['schools-fill-layer'] });
 
         const infoDiv = document.getElementById('info');
-        const bottomText = document.getElementById('bottom-text');
         infoDiv.innerHTML = ''; // Clear previous content
-        bottomText.innerHTML = ''; // Clear previous content
-
         let clickedCounty = ''
         let clickedTwp = ''
         let clickedSchool = ''
         //infoDiv.innerHTML += `<strong>Monthly Property Tax For Loan Amount: </strong> ${sliderValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
         infoDiv.innerHTML += `<strong><span style="color: purple;">Selected Area</span></strong><br>`;
-        bottomText.innerHTML += `Use slider; Re-select area to updatee<br>`;
 
         if (countyFeatures.length > 0) {
         clickedCounty = countyFeatures[0].properties.NAME_2; // Extract county name from the GeoJSON property
