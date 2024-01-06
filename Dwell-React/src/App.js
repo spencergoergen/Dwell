@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import mapboxgl from "mapbox-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -10,9 +10,6 @@ const MichiganCountiesMap = () => {
   // Define states here if needed using useState
   	const mapContainer = useRef(null);
 	const map = useRef(null);
-	const [lng, setLng] = useState(-83.732124);
-	const [lat, setLat] = useState(42.279594);
-	const [zoom, setZoom] = useState(11);
 
   // React useEffect for initializing the map
   React.useEffect(() => {
@@ -20,8 +17,8 @@ const MichiganCountiesMap = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
+      center: [-83.732124, 42.279594],
+      zoom: 11,
     });
   });
 
@@ -45,14 +42,14 @@ const MichiganCountiesMap = () => {
 					<li>Option 3</li>
 				</ul>
 			</div>
-			<div className="price-input">
+			<div id="price-input-container" className="price-input">
 				<button className="button" id="priceButton">Price v</button>
 				<div className="price-content" id="priceContent">
 					<input type="text" placeholder="Min" id="minPrice" />
 					<input type="text" placeholder="Max" id="maxPrice" />
 				</div>
 			</div>
-			<div className="dropdown">
+			<div id="downpayment-dropdown-container" className="dropdown">
 				<button className="button">Downpayment v</button>
 				<div className="dropdown-content">
 					<div>Option 1</div>
@@ -60,7 +57,7 @@ const MichiganCountiesMap = () => {
 					<div>Option 3</div>
 				</div>
 			</div>
-			<div className="dropdown">
+			<div id="district-dropdown-container" className="dropdown">
 				<button className="button">School District v</button>
 				<div className="dropdown-content">
 					<div>Option 1</div>
@@ -68,7 +65,7 @@ const MichiganCountiesMap = () => {
 					<div>Option 3</div>
 				</div>
 			</div>
-			<div className="dropdown">
+			<div id="loan-dropdown-container" className="dropdown">
 				<button className="button">Loan v</button>
 				<div className="dropdown-content">
 					<div>Option 1</div>
@@ -76,7 +73,7 @@ const MichiganCountiesMap = () => {
 					<div>Option 3</div>
 				</div>
 			</div>
-			<div className="dropdown">
+			<div id="interest-dropdown-container" className="dropdown">
 				<button className="button">Interest Rate v</button>
 				<div className="dropdown-content">
 					<div>Option 1</div>
@@ -84,16 +81,14 @@ const MichiganCountiesMap = () => {
 					<div>Option 3</div>
 				</div>
 			</div>
-			<div className="button" id="resetButton">Reset Map</div>
+			<div id="resetButton" className="button">Reset Map</div>
 		</div>
 		<div className="grow">
 			<div ref={mapContainer} className="h-full"></div>
 		</div>
-		<div id="slider-top" className="slider-top">Estimated Home Value: $500,000</div>
 		<div id="slider-container">
 			<input type="range" min="0" max="1000000" step="5000" id="real-slider" />
 		</div>
-		<div id="bottom-text" className="bottom-text">Use slider; Re-select area to update</div>
 		<script src="scripts.js"></script>
 	</div>
   );
