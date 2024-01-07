@@ -62,43 +62,7 @@
         <input type="text" id="searchField" placeholder="Search by City, ZIP, Address...">
     </div>
 
-    <!-- Type Dropdown Button -->
-    <div class="dropdown">
-      <button class="button">Type v</button>
-      <div class="dropdown-content">
-        <!-- Dropdown content for Type -->
-        <div><a href="#">Option 1</a></div>
-        <div><a href="#">Option 2</a></div>
-        <div><a href="#">Option 3</a></div>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <button class="button">Downpayment v</button>
-      <div class="dropdown-content" id="downpaymentPerc">
-        <!-- Dropdown content for Price -->
-        <div>
-          <input type="radio" id="5Percent" name="downpayment" value="5%">
-          <label for="5Percent">5%</label>
-        </div>
-        <div>
-          <input type="radio" id="10Percent" name="downpayment" value="10%">
-          <label for="10Percent">10%</label>
-        </div>
-        <div>
-          <input type="radio" id="15Percent" name="downpayment" value="15%">
-          <label for="15Percent">15%</label>
-        </div>
-        <div>
-          <input type="radio" id="20Percent" name="downpayment" value="20%">
-          <label for="20Percent">20%</label>
-        </div>
-        <div>
-          <input type="radio" id="25Percent" name="downpayment" value="25%">
-          <label for="25Percent">25%</label>
-        </div>
-      </div>
-    </div>
+    <button id="searchButton">Search</button>
     
     <div class="price-input">
       <button class="button" id="priceButton">Price v</button>
@@ -108,36 +72,39 @@
         </div>
       </div>
     </div>
-    
 
-
-      <div class="dropdown">
-        <button class="button">School District v</button>
-        <div class="dropdown-content">
-          <!-- Dropdown content for Price -->
-          <div><a href="#">Option 1</a></div>
-          <div><a href="#">Option 2</a></div>
-          <div><a href="#">Option 3</a></div>
+    <div class="dropdown">
+      <button id='downButton' class="button">Downpayment v</button>
+      <div class="dropdown-content" id="downpaymentPerc">
+        <div class="options-dropdown-line">
+          <span>Downpayment</span>
+          <input type="text" class="small-textfield" placeholder="5.0">
+          <span>%</span>
         </div>
+      </div>
     </div>
+
+    
 
         <div class="dropdown">
             <button class="button">Loan v</button>
             <div class="dropdown-content">
-              <!-- Dropdown content for Price -->
-              <div><a href="#">Option 1</a></div>
-              <div><a href="#">Option 2</a></div>
-              <div><a href="#">Option 3</a></div>
+              <div class="options-dropdown-line">
+                <span>Loan Years</span>
+                <input id="years" type="text" class="small-textfield" placeholder="30">
+                <span>Years</span>
+              </div>
             </div>
       </div>
 
       <div class="dropdown">
         <button class="button">Interest Rate v</button>
         <div class="dropdown-content">
-          <!-- Dropdown content for Price -->
-          <div><a href="#">Option 1</a></div>
-          <div><a href="#">Option 2</a></div>
-          <div><a href="#">Option 3</a></div>
+          <div class="options-dropdown-line">
+            <span>Interest Rate</span>
+            <input id="interest-rate" type="text" class="small-textfield" placeholder="5.00">
+            <span>%</span>
+          </div>
         </div>
   </div>
 

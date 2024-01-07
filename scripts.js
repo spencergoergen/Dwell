@@ -1,6 +1,4 @@
 // Get references to the search button and search input field
-const searchInput = document.getElementById('searchInput');
-const searchField = document.getElementById('searchField');
 const downpaymentButton = document.getElementById('downpaymentButton');
  
 // Event listener for typing in the search field
@@ -11,16 +9,20 @@ searchField.addEventListener('input', () => {
 
 const resetButton = document.getElementById('resetButton');
 
+function resetMap() {
+        map.setPaintProperty('county-line-layer', 'line-opacity', 0);
+        map.setPaintProperty('county-fill-layer', 'fill-opacity', 0);
+        map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
+        map.setPaintProperty('townships-fill-layer', 'fill-opacity', 0);
+        map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
+        map.setPaintProperty('schools-fill-layer', 'fill-opacity', 0);
+        const infoDiv = document.getElementById('info');
+        infoDiv.innerHTML = ''; // Clear previous content
+        infoDiv.innerHTML += `Change price and select an area`;
+}
+
 resetButton.addEventListener('click', function() {
-    map.setPaintProperty('county-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('county-fill-layer', 'fill-opacity', 0);
-    map.setPaintProperty('townships-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('townships-fill-layer', 'fill-opacity', 0);
-    map.setPaintProperty('schools-line-layer', 'line-opacity', 0);
-    map.setPaintProperty('schools-fill-layer', 'fill-opacity', 0);
-    const infoDiv = document.getElementById('info');
-    infoDiv.innerHTML = ''; // Clear previous content
-    infoDiv.innerHTML += `Change price and select an area`;
+    resetMap()
 });
 
 
@@ -130,10 +132,29 @@ function goBack() {
         window.history.back();
 }
 
+function calculateMonthlyPayment() {
+    const mortgageAmount = parseFloat(document.getElementById('real-slider').value);
+    const downPayment = mortgageAmount * 0.05; // 5% down payment
+    const loanAmount = mortgageAmount - downPayment;
+
+    const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100;
+    const monthlyInterestRate = interestRate / 12; // Monthly interest rate
+
+    const loanTermInYears = parseInt(document.getElementById('years').value);
+    const numberOfPayments = loanTermInYears * 12; // Number of payments (months)
+
+    // Calculate the monthly mortgage payment using the formula
+    const monthlyPayment = loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments) /
+        (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+    return monthlyPayment; // Return the result rounded to 2 decimal places
+}
+
 const bounds = [ [-91, 41], // Southwest coordinates of Michigan
 [-81.5, 49] // Northeast coordinates of Michigan
 ];
 
+const searchInput = document.getElementById('searchField');
+const searchButton = document.getElementById('searchButton');
   
 
 const infoDisplay = document.getElementById('info');
@@ -154,17 +175,40 @@ fetch('michigan.json')
         const sliderValueTop = document.getElementById('slider-top');
         const slider = document.getElementById('real-slider');
         const infoPage = document.getElementById('info');
+        const downButton = document.getElementById('downButton');
+        const priceButton = document.getElementById('priceButton');
+
+        let sliderValue = 500000;
+
+        downButton.addEventListener('click', function() {
+            resetMap()
+            const selectedDownpayment = document.querySelector('.dropdown-content input[type="text"]');
+            if (selectedDownpayment) {
+                selectedDownPercValue = parseFloat(selectedDownpayment.value);
+              }
+              
+              // Calculate downpayment cost
+            downCost = sliderValue * (selectedDownPercValue / 100);  
+            const monthlyCostText = 'Estimated Home Value: ';
+            const downpaymentText = 'Downpayment Cost: ';
+            sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}   ${downpaymentText}$${Number(downCost).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+        });
+
+        priceButton.addEventListener('click', function() {
+            resetMap()
+        });
+
         
         slider.addEventListener('input', (e) => {
             const infoDiv = document.getElementById('info');
             infoDiv.innerHTML = ''; // Clear previous content
             infoDiv.innerHTML += `Select an Area`;
         
-            const sliderValue = parseFloat(e.target.value);
+            sliderValue = parseFloat(e.target.value);
             // Update slider value display
             sliderValueDisplay.textContent = sliderValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         
-            const selectedDownpayment = document.querySelector('input[name="downpayment"]:checked');
+            const selectedDownpayment = document.querySelector('.dropdown-content input[type="text"]');
             let selectedDownPercValue = 0;
             
             if (selectedDownpayment) {
@@ -172,12 +216,14 @@ fetch('michigan.json')
             }
             
             // Calculate downpayment cost
-            downCost = sliderValue * (selectedDownPercValue / 100);            
+            downCost = sliderValue * (selectedDownPercValue / 100);  
+            
+            resetMap()
         
             // Display both estimated home value and downpayment cost
             const monthlyCostText = 'Estimated Home Value: ';
             const downpaymentText = 'Downpayment Cost: ';
-            sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} |  $${downpaymentText}${Number(downCost).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+            sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}   ${downpaymentText}$${Number(downCost).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
         });
         
 
@@ -289,6 +335,7 @@ fetch('michigan.json')
 
         //console.log(mapInfo[clickedCounty][clickedTwp]);
         let cost = 'Cost not calculated';
+        let totalMonthly = 'Total Monthly not calculated';
 
         if (schoolFeatures.length > 0 && mapInfo) {
         let clickedSchoolName = schoolFeatures[0].properties.NAME.toLowerCase().split(' ');
@@ -327,11 +374,18 @@ fetch('michigan.json')
             const sliderValue = parseFloat(document.getElementById('real-slider').value);
             cost = ((sliderValue / 2000) * rate) / 12;
             yearly = cost * 12;
+            const monthlyPayment = calculateMonthlyPayment();
+            console.log(`Total Monthly: ${monthlyPayment}`);
+            console.log(`Total Monthly: ${cost}`);
+            totalMonthly = monthlyPayment + cost;
+            totalMonthly = Math.floor(totalMonthly); 
             cost = Math.floor(cost);
             yearly = Math.floor(yearly);
+            console.log(`Total Monthly: ${totalMonthly}`);
+            
 
         }
-
+        console.log(cost)
         infoDiv.innerHTML += `<strong><span style="color: red;">School:</span></strong> ${schoolFeatures[0].properties.NAME}<br>`;
         infoDiv.innerHTML += `<strong>Rate:</strong> ${rate}<br>`;
         infoDiv.innerHTML += `<strong style="font-size: 17px;">Property Tax: </strong>$<span style="font-size: 17px;">${cost} monthly | $${yearly} yearly</span><br>`;
@@ -351,14 +405,15 @@ fetch('michigan.json')
         
         const closingTop = (closing + taxes + summer + inspection + homeowner) + (closingPlus + taxesPlus + summerPlus + inspectionPlus + homeownerPlus) + downCost;
         const closingBottom = (closing + taxes + summer + inspection + homeowner) - (closingPlus + taxesPlus + summerPlus + inspectionPlus + homeownerPlus) + downCost;
-        const monthlyCosts = 1;
 
         const formattedClosingTop = closingTop.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         const formattedClosingBottom = closingBottom.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
-        const formattedMonthlyCosts = monthlyCosts.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+        const formattedTotalMonthly = totalMonthly.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         
         infoDiv.innerHTML += `<strong style="font-size: 17px;">Cash Needed at Closing: </strong><span style="font-size: 17px;">${formattedClosingBottom} - ${formattedClosingTop}</span><br>`;
-        infoDiv.innerHTML += `<strong style="font-size: 17px;">Estimated Monthly Payment: </strong><span style="font-size: 17px;">${formattedMonthlyCosts}</span><br>`;
+        
+        infoDiv.innerHTML += `<strong style="font-size: 17px;">Estimated Monthly Payment: </strong><span style="font-size: 17px;">${formattedTotalMonthly}</span><br>`;
         }        
 
         map.setPaintProperty('townships-fill-layer', 'fill-opacity', [
@@ -414,6 +469,48 @@ fetch('michigan.json')
     map.on('mouseleave', 'county-fill-layer', () => {
         map.getCanvas().style.cursor = '';
     });
+
+    searchButton.addEventListener('click', function() {
+        const query = searchInput.value;
+    
+        // Use Mapbox Geocoding API to get the coordinates for the entered location
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${mapboxgl.accessToken}`)
+            .then(response => response.json())
+            .then(data => {
+                const features = data.features;
+                if (features.length > 0) {
+                    const placeName = features[0].place_name; // Extract the city name from the JSON response
+                    const cityText = features[0].text; 
+                    if (placeName.toLowerCase().includes('michigan')) {
+                        const coordinates = features[0].geometry.coordinates; // Get the coordinates
+                        map.flyTo({
+                            center: coordinates, // Set the map center to the entered location
+                            zoom: 10.5 // You can adjust the zoom level as needed
+                        });
+    
+                        const city = cityText.toLowerCase(); // City name in lowercase
+                        console.log(city)
+                        resetMap()
+    
+                        //map.setPaintProperty('townships-fill-layer', 'fill-opacity', [
+                        //    'case',
+                        //    ['==', ['get', 'city_property_in_your_layer'], city], // Replace 'city_property_in_your_layer' with the actual property name in your layer
+                        //   0.4, // Change this to the desired opacity for the clicked city (e.g., 0.5)
+                        //    0.0 // Default opacity for other cities
+                        //]);
+                    } else {
+                        alert('Location outside Michigan. Consider adding "MI" after your location.');
+                    }
+                } else {
+                    alert('Location not found.');
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+            });
+    });
+
+
     });
 })
 .catch(error => {
