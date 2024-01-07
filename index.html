@@ -21,6 +21,9 @@
     <button class="options-button" style="position: absolute; top: 17px; right: 90px; z-index: 5;">Options</button>
     <div class="options-dropdown-content" style="position: absolute; top: 52px; right: 60px; z-index: 5;">
       <div class="options-dropdown-line">
+        <span><strong>One Time Costs</strong></span>
+      </div>
+      <div class="options-dropdown-line">
         <span>Expected Closing Costs $</span>
         <input id="closing" type="text" class="long-textfield" placeholder="Closing Costs">
         <input id="closingPlus" type="text" class="small-textfield" placeholder="+/-">
@@ -45,10 +48,27 @@
         <span>+/-</span>
       </div>
       <div class="dropdown-line">
-        <span>1st Year Home Owner Insurance $</span>
-        <input id="homeowner" type="text" class="long-textfield" placeholder="Homeowner Insurance Costs">
+        <span>Homeowner Insurance $</span>
+        <input id="homeowner" type="text" class="long-textfield" placeholder="Homeowner Insurance">
         <input id="homeownerPlus" type="text" class="small-textfield" placeholder="+/-">
         <span>+/-</span>
+      </div>
+      <div class="options-dropdown-line">
+        <span><strong>Monthly Costs</strong></span>
+      </div>
+      <div class="dropdown-line">
+        <span>Expected Monthly HOA $</span></span>
+        <input id="hoa" type="text" class="long-textfield" placeholder="HOA Cost">
+      </div>
+
+      <div class="dropdown-line">
+        <span>Expected Monthly Home Insurance $</span>
+        <input id="homeInsurance" type="text" class="long-textfield" placeholder="Home Insurance Costs">
+      </div>
+
+      <div class="dropdown-line">
+        <span>Expected Monthly PMI/MIP $</span>
+        <input id="pmiMIP" type="text" class="long-textfield" placeholder="PMI/MIP Monthly Cost">
       </div>
     </div>
   </div>

@@ -1,3 +1,18 @@
+const inputs = document.querySelectorAll('input[type="text"]');
+
+inputs.forEach(input => {
+  input.addEventListener('input', () => {
+    // Save the input value to localStorage
+    localStorage.setItem(input.id, input.value);
+  });
+
+  // Retrieve and set the stored value when the page loads
+  const storedValue = localStorage.getItem(input.id);
+  if (storedValue) {
+    input.value = storedValue;
+  }
+});
+
 // Get references to the search button and search input field
 const downpaymentButton = document.getElementById('downpaymentButton');
  
@@ -133,6 +148,10 @@ function goBack() {
 }
 
 function calculateMonthlyPayment() {
+    const hoa = parseFloat(document.getElementById('hoa').value);
+    const homeInsurance = parseFloat(document.getElementById('homeInsurance').value);
+    const pmiMIP = parseFloat(document.getElementById('pmiMIP').value);
+
     const mortgageAmount = parseFloat(document.getElementById('real-slider').value);
     const downPayment = mortgageAmount * 0.05; // 5% down payment
     const loanAmount = mortgageAmount - downPayment;
@@ -144,7 +163,7 @@ function calculateMonthlyPayment() {
     const numberOfPayments = loanTermInYears * 12; // Number of payments (months)
 
     // Calculate the monthly mortgage payment using the formula
-    const monthlyPayment = loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments) /
+    const monthlyPayment = (pmiMIP + hoa + homeInsurance) + loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments) /
         (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
     return monthlyPayment; // Return the result rounded to 2 decimal places
 }
