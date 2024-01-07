@@ -177,7 +177,7 @@ fetch('michigan.json')
             // Display both estimated home value and downpayment cost
             const monthlyCostText = 'Estimated Home Value: ';
             const downpaymentText = 'Downpayment Cost: ';
-            sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}. ${downpaymentText}${Number(downCost).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+            sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} |  $${downpaymentText}${Number(downCost).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
         });
         
 
@@ -354,7 +354,7 @@ fetch('michigan.json')
         const monthlyCosts = 1;
 
         const formattedClosingTop = closingTop.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-        const formattedClosingBottom = closingBottom.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        const formattedClosingBottom = closingBottom.toLocaleString('en-US', { style: 'currency', currency: 'USD'});
         const formattedMonthlyCosts = monthlyCosts.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         
         infoDiv.innerHTML += `<strong style="font-size: 17px;">Cash Needed at Closing: </strong><span style="font-size: 17px;">${formattedClosingBottom} - ${formattedClosingTop}</span><br>`;
