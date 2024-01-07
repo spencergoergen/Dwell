@@ -14,7 +14,45 @@
 <body>
   <div class="info-info" id='info'>Change price and select an area</div>
   <img src="dwell.png" div class="floating-image">
-  <div class="right-side-text">Advertise</div>
+  <div class="right-side-text">Advertise </div>
+
+
+  <div class="options-dropdown">
+    <button class="options-button" style="position: absolute; top: 17px; right: 90px; z-index: 5;">Options</button>
+    <div class="options-dropdown-content" style="position: absolute; top: 52px; right: 60px; z-index: 5;">
+      <div class="options-dropdown-line">
+        <span>Expected Closing Costs $</span>
+        <input id="closing" type="text" class="long-textfield" placeholder="Long Text">
+        <input id="closingPlus" type="text" class="small-textfield" placeholder="Small Text">
+        <span>+/-</span>
+      </div>
+      <div class="dropdown-line">
+        <span>Proations (Seller's Taxes) $</span>
+        <input id="taxes" type="text" class="long-textfield" placeholder="Long Text">
+        <input id="taxesPlus" type="text" class="small-textfield" placeholder="Small Text">
+        <span>+/-</span>
+      </div>
+      <div class="dropdown-line">
+        <span>Summer/Winter Taxes $</span>
+        <input id="summer" type="text" class="long-textfield" placeholder="Long Text">
+        <input id="summerPlus" type="text" class="small-textfield" placeholder="Small Text">
+        <span>+/-</span>
+      </div>
+      <div class="dropdown-line">
+        <span>Expected Inspections $</span>
+        <input id="inspection" type="text" class="long-textfield" placeholder="Long Text">
+        <input id="inspectionPlus" type="text" class="small-textfield" placeholder="Small Text">
+        <span>+/-</span>
+      </div>
+      <div class="dropdown-line">
+        <span>1st Year Home Owner Insurance $</span>
+        <input id="homeowner" type="text" class="long-textfield" placeholder="Long Text">
+        <input id="homeownerPlus" type="text" class="small-textfield" placeholder="Small Text">
+        <span>+/-</span>
+      </div>
+    </div>
+  </div>
+
   <div class="circle"><span>SG</span></div>
   <!-- Button Row -->
   <div class="button-row">
@@ -23,6 +61,7 @@
     <div class="search-input" id="searchInput">
         <input type="text" id="searchField" placeholder="Search by City, ZIP, Address...">
     </div>
+
     <!-- Type Dropdown Button -->
     <div class="dropdown">
       <button class="button">Type v</button>
@@ -45,15 +84,34 @@
     
 
       <!-- Price Dropdown Button -->
-      <div class="dropdown">
-        <button class="button">Downpayment v</button>
-        <div class="dropdown-content">
-          <!-- Dropdown content for Price -->
-          <div><a href="#">Option 1</a></div>
-          <div><a href="#">Option 2</a></div>
-          <div><a href="#">Option 3</a></div>
-        </div>
-      </div>
+<!-- Price Dropdown Radio Buttons -->
+<div class="dropdown">
+  <button class="button">Downpayment v</button>
+  <div class="dropdown-content" id="downpaymentPerc">
+    <!-- Dropdown content for Price -->
+    <div>
+      <input type="radio" id="5Percent" name="downpayment" value="5%">
+      <label for="5Percent">5%</label>
+    </div>
+    <div>
+      <input type="radio" id="10Percent" name="downpayment" value="10%">
+      <label for="10Percent">10%</label>
+    </div>
+    <div>
+      <input type="radio" id="15Percent" name="downpayment" value="15%">
+      <label for="15Percent">15%</label>
+    </div>
+    <div>
+      <input type="radio" id="20Percent" name="downpayment" value="20%">
+      <label for="20Percent">20%</label>
+    </div>
+    <div>
+      <input type="radio" id="25Percent" name="downpayment" value="25%">
+      <label for="25Percent">25%</label>
+    </div>
+  </div>
+</div>
+
 
       <div class="dropdown">
         <button class="button">School District v</button>
@@ -101,10 +159,6 @@
 <div id='map'></div>
 <div class="white-box"></div>
 <div class="white-box-side"></div>
-<div id="slider-container">
-  <input type="range" min="0" max="1000000" step="5000" id="real-slider">
-</div>
-
 
 <div id="slider-value"></div>
 <div class='slider-top' id="slider-top">Estimated Home Value: $500,000</div>

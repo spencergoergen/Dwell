@@ -1,6 +1,7 @@
 // Get references to the search button and search input field
 const searchInput = document.getElementById('searchInput');
 const searchField = document.getElementById('searchField');
+const downpaymentButton = document.getElementById('downpaymentButton');
  
 // Event listener for typing in the search field
 searchField.addEventListener('input', () => {
@@ -27,7 +28,8 @@ function getCheckedOptions() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     const checkedOptions = Array.from(checkboxes).map((checkbox) => checkbox.value);
     console.log(checkedOptions);
-  }  
+} 
+
 const countyCheckbox = document.getElementById('countyCheckbox');
 const townshipCheckbox = document.getElementById('townshipCheckbox');
 const schoolsCheckbox = document.getElementById('schoolsCheckbox');
@@ -57,35 +59,52 @@ schoolsCheckbox.addEventListener('change', function() {
   });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all dropdowns
-    const dropdowns = document.querySelectorAll('.dropdown');
-    const priceInput = document.querySelectorAll('.price-input');
+    const dropdown = document.querySelector('.options-dropdown');
+    const dropdownContent = document.querySelector('.options-dropdown-content');
+    
+  
+    dropdown.addEventListener('click', (event) => {
+      event.stopPropagation();
+      dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+      console.log("Clicked")
+    });
+  
+    dropdownContent.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+  
+    document.addEventListener('click', () => {
+      dropdownContent.style.display = 'none';
+    });
 
-    // Add click event listener to each dropdown
-    dropdowns.forEach((dropdown) => {
+    
+});
+
+// Logic for Multiple Dropdowns with Class .dropdown
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
         const dropdownContent = dropdown.querySelector('.dropdown-content');
 
         dropdown.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the click event from propagating to the document
-
-        // Toggle the display of the dropdown content
-        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-
-        // Hide other dropdowns' content if clicked
-        dropdowns.forEach((otherDropdown) => {
-            if (otherDropdown !== dropdown) {
-            otherDropdown.querySelector('.dropdown-content').style.display = 'none';
-            }
-        });
+            event.stopPropagation();
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+            console.log(`Clicked ${dropdown.classList[1]} Dropdown`);
         });
 
-        // Close the dropdown when clicking outside of it
-        document.addEventListener('click', (event) => {
-        if (!dropdown.contains(event.target)) {
+        dropdownContent.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', () => {
             dropdownContent.style.display = 'none';
-        }
         });
     });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
     const priceButton = document.getElementById('priceButton');
     const priceContent = document.getElementById('priceContent');
   
@@ -115,6 +134,8 @@ const bounds = [ [-91, 41], // Southwest coordinates of Michigan
 [-81.5, 49] // Northeast coordinates of Michigan
 ];
 
+  
+
 const infoDisplay = document.getElementById('info');
 let mapInfo; // Declare countyInfo variable outside the event handlers
 
@@ -124,31 +145,41 @@ fetch('michigan.json')
 .then(data => {
     const mapInfo = data;
 
+    let downCost;
+
     map.on('load', () => {
-    const sliderValueDisplay = document.getElementById('slider-value');
-    const sliderContainer = document.getElementById('slider-container');
-    const sliderValueTop = document.getElementById('slider-top'); // New element for top display
-    const slider = document.getElementById('real-slider');
-    const infoPage = document.getElementById('info');
-
-    slider.addEventListener('input', (e) => {
-        const infoDiv = document.getElementById('info');
-        infoDiv.innerHTML = ''; // Clear previous content
-        infoDiv.innerHTML += `Select an Area`;
-
-        const sliderValue = parseFloat(e.target.value);
-        // Update slider value display
-        sliderValueDisplay.textContent = sliderValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-
-        // Update the element at the top with the slider value and static text
-        const monthlyCostText = 'Estimated Home Value: ';
+        const sliderValueDisplay = document.getElementById('slider-value');
+        const downPercDropdown = document.getElementById('downpaymentPerc');
+        const sliderContainer = document.getElementById('slider-container');
         const sliderValueTop = document.getElementById('slider-top');
-        //const monthlyCostText2 = '(Homestead)';
+        const slider = document.getElementById('real-slider');
+        const infoPage = document.getElementById('info');
         
-        // Assuming sliderValue is a number representing the currency value
-        sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
-        // add ${monthlyCostText2} to end of the ^^
-    });
+        slider.addEventListener('input', (e) => {
+            const infoDiv = document.getElementById('info');
+            infoDiv.innerHTML = ''; // Clear previous content
+            infoDiv.innerHTML += `Select an Area`;
+        
+            const sliderValue = parseFloat(e.target.value);
+            // Update slider value display
+            sliderValueDisplay.textContent = sliderValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        
+            const selectedDownpayment = document.querySelector('input[name="downpayment"]:checked');
+            let selectedDownPercValue = 0;
+            
+            if (selectedDownpayment) {
+              selectedDownPercValue = parseFloat(selectedDownpayment.value);
+            }
+            
+            // Calculate downpayment cost
+            downCost = sliderValue * (selectedDownPercValue / 100);            
+        
+            // Display both estimated home value and downpayment cost
+            const monthlyCostText = 'Estimated Home Value: ';
+            const downpaymentText = 'Downpayment Cost: ';
+            sliderValueTop.textContent = `${monthlyCostText}$${Number(sliderValue).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}. ${downpaymentText}${Number(downCost).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+        });
+        
 
     map.setMaxBounds(bounds);
     map.setMinZoom(3);
@@ -302,11 +333,33 @@ fetch('michigan.json')
         }
 
         infoDiv.innerHTML += `<strong><span style="color: red;">School:</span></strong> ${schoolFeatures[0].properties.NAME}<br>`;
-        //infoDiv.innerHTML += `<strong>Rate:</strong> ${rate}<br>`;
+        infoDiv.innerHTML += `<strong>Rate:</strong> ${rate}<br>`;
         infoDiv.innerHTML += `<strong style="font-size: 17px;">Property Tax: </strong>$<span style="font-size: 17px;">${cost} monthly | $${yearly} yearly</span><br>`;
-        //infoDiv.innerHTML += `<strong style="font-size: 17px;">Yearly Property Tax:</strong>$<span style="font-size: 17px;">${yearly}</span><br>`;
-        infoDiv.innerHTML += `<span style="font-size: 12px;">*Only an Estimate based on posted 2022 Michigan Millage Rates</span>`;
-        }
+        infoDiv.innerHTML += `<span style="font-size: 12px;">*Only an Estimate based on posted 2022 Michigan Millage Rates</span><br>`;
+        infoDiv.innerHTML += `<span style="font-size: 12px;"><br>`;
+        
+        const closing = parseFloat(document.getElementById('closing').value) || 0;
+        const closingPlus = parseFloat(document.getElementById('closingPlus').value) || 0;
+        const taxes = parseFloat(document.getElementById('taxes').value) || 0;
+        const taxesPlus = parseFloat(document.getElementById('taxesPlus').value) || 0;
+        const summer = parseFloat(document.getElementById('summer').value) || 0;
+        const summerPlus = parseFloat(document.getElementById('summerPlus').value) || 0;
+        const inspection = parseFloat(document.getElementById('inspection').value) || 0;
+        const inspectionPlus = parseFloat(document.getElementById('inspectionPlus').value) || 0;
+        const homeowner = parseFloat(document.getElementById('homeowner').value) || 0;
+        const homeownerPlus = parseFloat(document.getElementById('homeownerPlus').value) || 0;
+        
+        const closingTop = (closing + taxes + summer + inspection + homeowner) + (closingPlus + taxesPlus + summerPlus + inspectionPlus + homeownerPlus) + downCost;
+        const closingBottom = (closing + taxes + summer + inspection + homeowner) - (closingPlus + taxesPlus + summerPlus + inspectionPlus + homeownerPlus) + downCost;
+        const monthlyCosts = 1;
+
+        const formattedClosingTop = closingTop.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        const formattedClosingBottom = closingBottom.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        const formattedMonthlyCosts = monthlyCosts.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        
+        infoDiv.innerHTML += `<strong style="font-size: 17px;">Cash Needed at Closing: </strong><span style="font-size: 17px;">${formattedClosingBottom} - ${formattedClosingTop}</span><br>`;
+        infoDiv.innerHTML += `<strong style="font-size: 17px;">Estimated Monthly Payment: </strong><span style="font-size: 17px;">${formattedMonthlyCosts}</span><br>`;
+        }        
 
         map.setPaintProperty('townships-fill-layer', 'fill-opacity', [
             'case',
